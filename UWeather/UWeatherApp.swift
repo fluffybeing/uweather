@@ -1,32 +1,17 @@
 //
-//  UWeatherApp.swift
-//  UWeather
+//  weatherAppApp.swift
+//  weatherApp
 //
-//  Created by Ranjan, Rahul on 11/22/25.
+//  Created by Berkay Veysel Ayköse on 16.03.2025.
 //
 
 import SwiftUI
-import SwiftData
 
 @main
-struct UWeatherApp: App {
-    var sharedModelContainer: ModelContainer = {
-        let schema = Schema([
-            Item.self,
-        ])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
-
-        do {
-            return try ModelContainer(for: schema, configurations: [modelConfiguration])
-        } catch {
-            fatalError("Could not create ModelContainer: \(error)")
-        }
-    }()
-
+struct weatherAppApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
         }
-        .modelContainer(sharedModelContainer)
     }
 }
