@@ -40,8 +40,14 @@ UWeather (🌤️) is a clean, modern, and user-friendly weather application bui
 
 ## 🖼️ Screenshots
 
-<!-- Add screenshots here if available -->
+<<img width="300" height="auto" alt="Simulator Screenshot - iPhone Air - 2025-11-24 at 20 20 09" src="https://github.com/user-attachments/assets/cd211a2b-cdfd-40ef-a781-186f0518ab07" />
+<img width="300" height="auto" alt="Simulator Screenshot - iPhone Air - 2025-11-24 at 20 20 12" src="https://github.com/user-attachments/assets/03a5176b-b814-4b3b-a6c6-430053f4605f" />
+<img width="300" height="auto" alt="Simulator Screenshot - iPhone Air - 2025-11-24 at 20 20 17" src="https://github.com/user-attachments/assets/180a2272-fd60-4ed5-af88-4383a204bcdb" />
+!-- Add screenshots here if available -->
 
 ## 🎥 Demo Video
+
+https://github.com/user-attachments/assets/6193e00a-7b55-40e8-99ec-9142391d6760
+
 
 <!-- Add demo video link here if available -->
