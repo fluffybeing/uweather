@@ -7,6 +7,7 @@
 
 import SwiftUI
 import CoreLocation
+import os
 
 @Observable
 final class LocationService : NSObject, CLLocationManagerDelegate {
@@ -35,8 +36,10 @@ final class LocationService : NSObject, CLLocationManagerDelegate {
     
     #if targetEnvironment(simulator)
     self.location = placeholderLocation
+    LogService.debug.log("Using placeholder location for simulator")
     #else
     self.location = locations.first?.coordinate ?? placeholderLocation
+    LogService.debug.log("Using real location in the device")
     #endif
     isLoading = false
   }
