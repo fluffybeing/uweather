@@ -11,50 +11,63 @@ import os
 
 struct HomeView: View {
   @State private var cityStore = CityStore()
-  @State private var currentCityWeather: CurrentWeatherModel?
-
+  @State private var isLoadingWeather = false
+  
   @Environment(\.weatherService)
   private var weatherService
-
+  
   var body: some View {
     NavigationView {
       List {
         Section(header: Text("Your Cities")) {
-          ForEach(cityStore.cities.indices, id: \.self) { index in
-            if let weather = cityStore.cities[index].weather {
+          ForEach(cityStore.cities) { city in
+            if let weather = city.weather {
               CityRow(weather: weather)
             } else {
               LoadingView()
-                .task {
-                  do {
-                    cityStore.cities[index].weather =
-                      try await weatherService.currentWeather(
-                        location: cityStore.cities[index].location
-                      )
-                  } catch {
-                    LogService.debug.log(
-                      "Failed to fetch the weather: \(error)"
-                    )
-                  }
-                }
             }
           }
-          .onMove(perform: move)
+          .onMove(perform: cityStore.move)
         }
       }
       .navigationBarItems(leading: EditButton())
       .navigationBarTitle(Text("Home"))
+      .task {
+        if !isLoadingWeather {
+          await loadCitiesWeather()
+        }
+      }
     }
   }
-
-  private func move(from source: IndexSet, to destination: Int) {
-    var removeCities: [City] = []
-
-    for index in source {
-      removeCities.append(cityStore.cities[index])
-      cityStore.cities.remove(at: index)
+  
+  private func loadCitiesWeather() async {
+    isLoadingWeather = true
+    
+    await withTaskGroup(of: (UUID, CurrentWeatherModel?).self) { group in
+      for city in cityStore.cities {
+        group.addTask {
+          do {
+            let weather = try await weatherService.currentWeather(
+              location: city.location
+            )
+            return (city.id, weather)
+          } catch {
+            await LogService.debug
+              .log("Failed to fetch weather for \(city.name): \(error)")
+            return (city.id, nil)
+          }
+        }
+      }
+      
+      for await (cityId, weather) in group {
+        if let index = cityStore.cities.firstIndex(where: { $0.id == cityId }),
+           let weather = weather {
+          cityStore.cities[index].weather = weather
+        }
+      }
     }
-
-    cityStore.cities.insert(contentsOf: removeCities, at: destination)
+    
+    isLoadingWeather = false
   }
 }
+

@@ -52,8 +52,8 @@ class CityStore {
       weather: nil
     )
   ]
-}
-
-extension EnvironmentValues {
-  @Entry var cityStore: CityStore = CityStore()
+  
+  func move(from source: IndexSet, to destination: Int) {
+    cities.move(fromOffsets: source, toOffset: destination)
+  }
 }

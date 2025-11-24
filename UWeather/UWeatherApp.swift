@@ -19,7 +19,6 @@ struct UWeatherApp: App {
   var body: some Scene {
     WindowGroup {
       HomeView()
-        .environment(CityStore())
     }
   }
 }
