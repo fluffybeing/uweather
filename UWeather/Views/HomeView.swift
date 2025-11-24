@@ -5,47 +5,46 @@
 //  Created by Ranjan, Rahul on 11/24/25.
 //
 
+import CoreLocationUI
 import SwiftUI
 import os
 
-struct CityListView: View {
+struct HomeView: View {
   @State private var cityStore = CityStore()
+  @State private var currentCityWeather: CurrentWeatherModel?
 
   @Environment(\.weatherService)
   private var weatherService
 
   var body: some View {
-    VStack {
-      NavigationView {
-        List {
-          Section(header: Text("Your Cities")) {
-            ForEach(cityStore.cities.indices, id: \.self) { index in
-              if let weather = cityStore.cities[index].weather {
-                CityRow(weather: weather)
-              } else {
-                LoadingView()
-                  .task {
-                    do {
-                      cityStore.cities[index].weather =
-                        try await weatherService.currentWeather(
-                          location: cityStore.cities[index].location
-                        )
-                    } catch {
-                      LogService.debug.log(
-                        "Failed to fetch the weather: \(error)"
+    NavigationView {
+      List {
+        Section(header: Text("Your Cities")) {
+          ForEach(cityStore.cities.indices, id: \.self) { index in
+            if let weather = cityStore.cities[index].weather {
+              CityRow(weather: weather)
+            } else {
+              LoadingView()
+                .task {
+                  do {
+                    cityStore.cities[index].weather =
+                      try await weatherService.currentWeather(
+                        location: cityStore.cities[index].location
                       )
-                    }
+                  } catch {
+                    LogService.debug.log(
+                      "Failed to fetch the weather: \(error)"
+                    )
                   }
-              }
+                }
             }
-            .onMove(perform: move)
           }
+          .onMove(perform: move)
         }
-        .navigationBarItems(leading: EditButton())
-        .navigationBarTitle(Text("Weather"))
       }
+      .navigationBarItems(leading: EditButton())
+      .navigationBarTitle(Text("Home"))
     }
-    .background(.green)
   }
 
   private func move(from source: IndexSet, to destination: Int) {
