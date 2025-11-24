@@ -11,6 +11,15 @@ import SwiftUI
 class CityStore {
   var cities: [City] = [
     City(
+      name: "Stockholm",
+      longitude: 18.0649,
+      latitude: 59.3326,
+      imageURL: URL(
+        string: "https://images.unsplash.com/photo-1508189860359-777d945909ef?w=800"
+      ),
+      weather: nil
+    ),
+    City(
       name: "Tokyo",
       longitude: 139.6917,
       latitude: 35.6895,

@@ -31,7 +31,7 @@ struct WeatherView: View {
 
       WeatherBottomSheetView(weather: weather)
     }
-//    .edgesIgnoringSafeArea(.bottom)
+    //    .edgesIgnoringSafeArea(.bottom)
   }
 }
 

@@ -20,10 +20,10 @@ struct CityRow: View {
           .font(.title)
         Spacer()
         HStack {
-          Text(weather.feelsLike.roundDouble() + "-ºC")
+          Text(weather.feelsLike.roundDouble() + "ºC")
             .foregroundColor(.gray)
             .font(.title)
-          Image(systemName: "cloud.fill")
+          Image(systemName: "cloud.sun.rain.fill")
             .foregroundColor(Color.gray)
             .font(.title)
         }
