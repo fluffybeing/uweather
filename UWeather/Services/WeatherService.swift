@@ -7,6 +7,7 @@
 
 import CoreLocation
 import SwiftUI
+import os
 
 protocol WeatherServiceProtocol {
   associatedtype T = Decodable
@@ -30,66 +31,43 @@ struct WeatherURL {
 }
 
 class WeatherService: WeatherServiceProtocol {
-  
-  func currentWeather(location: CLLocationCoordinate2D) async throws -> WeatherServiceResponse {
-    guard let url = WeatherURL().current(for: location) else {
-      // Use logging for it
-      fatalError("Invalid URL")
+  func currentWeather(location: CLLocationCoordinate2D) async throws -> CurrentWeatherModel {
+    do {
+      guard let url = WeatherURL().current(for: location) else {
+        LogService.debug.log("Invalid URL")
+        throw NetworkingError.invalidURL
+      }
+      
+      let (data, response) = try await URLSession.shared.data(
+        for: URLRequest(url: url)
+      )
+      
+      LogService.debug.log("URL is \(url) and response is \(response)")
+
+      guard let statusCode = (response as? HTTPURLResponse)?.statusCode else {
+        throw NetworkingError.invalidStatusCode(statusCode: -1)
+      }
+      
+      guard (200...299).contains(statusCode) else {
+        throw NetworkingError.invalidStatusCode(statusCode: statusCode)
+      }
+      
+      let jsonResponse = try JSONDecoder().decode(
+        WeatherServiceResponseModel.self,
+        from: data
+      )
+      
+      return jsonResponse.currentWeather
+    } catch let error as DecodingError {
+      throw NetworkingError.decodingFailed(innerError: error)
+    } catch let error as EncodingError {
+      throw NetworkingError.encodingFailed(innerError: error)
+    } catch let error as URLError {
+      throw NetworkingError.requestFailed(innerError: error)
+    } catch let error as NetworkingError {
+      throw error
+    } catch {
+      throw NetworkingError.otherError(innerError: error)
     }
-
-    let (data, response) = try await URLSession.shared.data(
-      for: URLRequest(url: url)
-    )
-
-    guard (response as? HTTPURLResponse)?.statusCode == 200 else {
-      fatalError("Issue is receiving the data")
-    }
-
-    let decodedData = try JSONDecoder().decode(
-      WeatherServiceResponse.self,
-      from: data
-    )
-
-    return decodedData
   }
-}
-
-struct WeatherServiceResponse: Decodable {
-  var coord: CoordinatesResponse
-  var weather: [WeatherResponse]
-  var main: MainResponse
-  var name: String
-  var wind: WindResponse
-
-  struct CoordinatesResponse: Decodable {
-    var lon: Double
-    var lat: Double
-  }
-
-  struct WeatherResponse: Decodable {
-    var id: Double
-    var main: String
-    var description: String
-    var icon: String
-  }
-
-  struct MainResponse: Decodable {
-    var temp: Double
-    var feels_like: Double
-    var temp_min: Double
-    var temp_max: Double
-    var pressure: Double
-    var humidity: Double
-  }
-
-  struct WindResponse: Decodable {
-    var speed: Double
-    var deg: Double
-  }
-}
-
-extension WeatherServiceResponse.MainResponse {
-  var feelsLike: Double { return feels_like }
-  var tempMin: Double { return temp_min }
-  var tempMax: Double { return temp_max }
 }
