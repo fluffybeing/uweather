@@ -34,5 +34,5 @@ struct CityRow: View {
 }
 
 #Preview {
-  CityRow(weather: CurrentWeatherModel(cityName: "Test", weatherType: "Test", temperature: 10, feelsLike: 10, minTemp: 10, maxTemp: 10, windSpeed: 10, humidity: 10))
+
 }
