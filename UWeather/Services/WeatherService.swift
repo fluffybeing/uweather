@@ -20,14 +20,19 @@ struct WeatherURL {
   private let baseURL = "https://api.openweathermap.org/data/2.5/weather"
 
   func current(for location: CLLocationCoordinate2D) -> URL? {
-    // Could have use URL construction using query params and components
-    // but it is just one URL so keeping it like this
-    return URL(
-      string:
-        "\(baseURL)?lat=\(location.latitude)&lon=\(location.longitude)&appid=\(apiKey)&units=metric"
-    )
-  }
+    var components = URLComponents()
+    components.scheme = "https"
+    components.host = "api.openweathermap.org"
+    components.path = "/data/2.5/weather"
+    components.queryItems = [
+      URLQueryItem(name: "lat", value: "\(location.latitude)"),
+      URLQueryItem(name: "lon", value: "\(location.longitude)"),
+      URLQueryItem(name: "appid", value: apiKey),
+      URLQueryItem(name: "units", value: "metric"),
+    ]
 
+    return components.url
+  }
 }
 
 class WeatherService: WeatherServiceProtocol {
@@ -38,10 +43,12 @@ class WeatherService: WeatherServiceProtocol {
         throw NetworkingError.invalidURL
       }
       
-      let (data, response) = try await URLSession.shared.data(
-        for: URLRequest(url: url)
-      )
+      // Caching URL request
+      // could have done manually by writing it to the file
+      var request = URLRequest(url: url)
+      request.cachePolicy = .returnCacheDataElseLoad
       
+      let (data, response) = try await URLSession.shared.data(for: request)
       LogService.debug.log("URL is \(url) and response is \(response)")
 
       guard let statusCode = (response as? HTTPURLResponse)?.statusCode else {
@@ -70,4 +77,8 @@ class WeatherService: WeatherServiceProtocol {
       throw NetworkingError.otherError(innerError: error)
     }
   }
+}
+
+extension EnvironmentValues {
+  @Entry var weatherService = WeatherService()
 }
