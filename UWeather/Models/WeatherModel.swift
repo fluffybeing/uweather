@@ -14,7 +14,6 @@ struct CurrentWeatherModel: Decodable {
   let maxTemp: Double
   let windSpeed: Double
   let humidity: Double
-  
 }
 
 struct WeatherServiceResponseModel: Decodable {
