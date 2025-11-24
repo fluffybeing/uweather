@@ -5,6 +5,11 @@
 //  Created by Ranjan, Rahul on 11/23/25.
 //
 
+
+// Not an ideal model but this is what I
+// came up with for the meantime
+// CurrentWeatherModel is inside City models
+// but this also contains city info
 struct CurrentWeatherModel: Decodable {
   let cityName: String
   let weatherType: String
