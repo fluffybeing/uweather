@@ -6,8 +6,19 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXContainerItemProxy section */
+		66AEB6092ED4ED89005012BE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6697F6E72ED1FCB700045030 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6697F6EE2ED1FCB700045030;
+			remoteInfo = UWeather;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		6697F6EF2ED1FCB700045030 /* UWeather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UWeather.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		66AEB6052ED4ED89005012BE /* UWeatherTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UWeatherTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -29,10 +40,22 @@
 			path = UWeather;
 			sourceTree = "<group>";
 		};
+		66AEB6062ED4ED89005012BE /* UWeatherTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = UWeatherTests;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		6697F6EC2ED1FCB700045030 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		66AEB6022ED4ED89005012BE /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -46,6 +69,7 @@
 			isa = PBXGroup;
 			children = (
 				6697F6F12ED1FCB700045030 /* UWeather */,
+				66AEB6062ED4ED89005012BE /* UWeatherTests */,
 				6697F6F02ED1FCB700045030 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -54,6 +78,7 @@
 			isa = PBXGroup;
 			children = (
 				6697F6EF2ED1FCB700045030 /* UWeather.app */,
+				66AEB6052ED4ED89005012BE /* UWeatherTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -83,6 +108,29 @@
 			productReference = 6697F6EF2ED1FCB700045030 /* UWeather.app */;
 			productType = "com.apple.product-type.application";
 		};
+		66AEB6042ED4ED89005012BE /* UWeatherTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 66AEB60B2ED4ED89005012BE /* Build configuration list for PBXNativeTarget "UWeatherTests" */;
+			buildPhases = (
+				66AEB6012ED4ED89005012BE /* Sources */,
+				66AEB6022ED4ED89005012BE /* Frameworks */,
+				66AEB6032ED4ED89005012BE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				66AEB60A2ED4ED89005012BE /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				66AEB6062ED4ED89005012BE /* UWeatherTests */,
+			);
+			name = UWeatherTests;
+			packageProductDependencies = (
+			);
+			productName = UWeatherTests;
+			productReference = 66AEB6052ED4ED89005012BE /* UWeatherTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -96,6 +144,10 @@
 					6697F6EE2ED1FCB700045030 = {
 						CreatedOnToolsVersion = 26.1.1;
 						LastSwiftMigration = 2610;
+					};
+					66AEB6042ED4ED89005012BE = {
+						CreatedOnToolsVersion = 26.1.1;
+						TestTargetID = 6697F6EE2ED1FCB700045030;
 					};
 				};
 			};
@@ -114,12 +166,20 @@
 			projectRoot = "";
 			targets = (
 				6697F6EE2ED1FCB700045030 /* UWeather */,
+				66AEB6042ED4ED89005012BE /* UWeatherTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		6697F6ED2ED1FCB700045030 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		66AEB6032ED4ED89005012BE /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -136,7 +196,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		66AEB6012ED4ED89005012BE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		66AEB60A2ED4ED89005012BE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6697F6EE2ED1FCB700045030 /* UWeather */;
+			targetProxy = 66AEB6092ED4ED89005012BE /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		6697F6FA2ED1FCB900045030 /* Debug */ = {
@@ -331,6 +406,48 @@
 			};
 			name = Release;
 		};
+		66AEB60C2ED4ED89005012BE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = LBK436X9NV;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ouira.UWeatherTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/UWeather.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/UWeather";
+			};
+			name = Debug;
+		};
+		66AEB60D2ED4ED89005012BE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = LBK436X9NV;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ouira.UWeatherTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/UWeather.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/UWeather";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -348,6 +465,15 @@
 			buildConfigurations = (
 				6697F6FD2ED1FCB900045030 /* Debug */,
 				6697F6FE2ED1FCB900045030 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		66AEB60B2ED4ED89005012BE /* Build configuration list for PBXNativeTarget "UWeatherTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				66AEB60C2ED4ED89005012BE /* Debug */,
+				66AEB60D2ED4ED89005012BE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
