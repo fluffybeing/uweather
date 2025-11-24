@@ -49,3 +49,7 @@ final class LocationService : NSObject, CLLocationManagerDelegate {
     isLoading = false
   }
 }
+
+extension EnvironmentValues {
+  @Entry var locationService = LocationService()
+}
