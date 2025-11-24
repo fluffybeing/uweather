@@ -31,7 +31,7 @@ struct WeatherView: View {
 
       WeatherBottomSheetView(weather: weather)
     }
-    .edgesIgnoringSafeArea(.bottom)
+//    .edgesIgnoringSafeArea(.bottom)
   }
 }
 
@@ -51,7 +51,8 @@ struct WeatherHeaderView: View {
       )
       .fontWeight(.light)
 
-    }.frame(maxWidth: .infinity, alignment: .leading)
+    }
+    .frame(maxWidth: .infinity, alignment: .leading)
   }
 }
 
@@ -74,7 +75,8 @@ struct WeatherMainContentView: View {
 
       Spacer()
 
-    }.frame(maxWidth: .infinity)
+    }
+    .frame(maxWidth: .infinity)
   }
 }
 
@@ -136,15 +138,14 @@ struct WeatherBottomSheetView: View {
           .padding(.bottom)
 
         WeatherStatsGrid(weather: weather)
-
-      }.frame(maxWidth: .infinity, alignment: .leading)
-        .padding()
-        .padding(.bottom, 20)
-        .foregroundColor(
-          Color(hue: 0.656, saturation: 0.787, brightness: 0.354)
-        )
-        .background(.white)
-        .cornerRadius(20, corners: [.topLeft, .topRight])
+      }
+      .frame(maxWidth: .infinity, alignment: .leading)
+      .padding()
+      .padding(.bottom, 20)
+      .foregroundColor(.black.opacity(0.8))
+      .background(.white)
+      .cornerRadius(20, corners: [.topLeft, .topRight])
+      .border(.gray.opacity(0.4), width: 1)
     }
   }
 }
@@ -188,8 +189,4 @@ struct WeatherStatsGrid: View {
       }
     }
   }
-}
-
-#Preview {
-  //  WeatherView(weather: )
 }
